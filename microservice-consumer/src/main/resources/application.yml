@@ -1,0 +1,28 @@
+server:
+      #服务注册中心端口号
+      port: 8073
+
+spring:
+    application:
+                #使用RestTemplate访问时这个值就是虚拟主机名
+                name: microservice-consumer
+logging:
+      level:
+            com:
+                magic:
+                      microservice: DEBUG
+                      
+eureka:
+       client:
+              serviceUrl:
+                        defaultZone: http://user:password123@localhost:8071/eureka
+              healthcheck:
+                        enabled: true
+       instance:
+                #true表示把ip注册到服务注册中心，false表示把机器名注册到服务注册中心
+                prefer-ip-address: true
+                #自定义instanceId 默认值为：${spring.cloud.client.hostname}:${spring.application.name}:${spring.application.instance_id:${server.port}}}
+                instanceId: ${spring.application.name}:${spring.application.instance_id:${server.port}}
+       
+mobile.queryMobileUrl: http://microservice-provider-user/queryMobileById/?id={id}                       
+                        

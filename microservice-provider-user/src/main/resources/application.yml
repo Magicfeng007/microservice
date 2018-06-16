@@ -1,0 +1,54 @@
+server:
+      #服务注册中心端口号
+      port: 8082
+
+spring:
+    application:
+                #使用RestTemplate访问时这个值就是虚拟主机名
+                name: microservice-provider-user
+    datasource:
+        name: test
+        url: jdbc:mysql://127.0.0.1:3306/mytest
+        username: root
+        password: root
+        # 使用druid数据源
+        type: com.alibaba.druid.pool.DruidDataSource
+        driver-class-name: com.mysql.jdbc.Driver
+        filters: stat
+        maxActive: 20
+        initialSize: 1
+        maxWait: 60000
+        minIdle: 1
+        timeBetweenEvictionRunsMillis: 60000
+        minEvictableIdleTimeMillis: 300000
+        validationQuery: select 'x'
+        testWhileIdle: true
+        testOnBorrow: false
+        testOnReturn: false
+        poolPreparedStatements: true
+        maxOpenPreparedStatements: 20
+    jpa:
+        hibernate:
+                  #配置自动建表：updata:没有表新建，有表更新操作
+                  ddl-auto: update
+        #控制台显示建表语句
+        show-sql: true
+
+logging:
+      level:
+            com:
+                magic:
+                      microservice: DEBUG
+                      
+eureka:
+       client:
+              serviceUrl:
+                        defaultZone: http://user:password123@localhost:8071/eureka  
+              healthcheck:
+                        enabled: true                 
+       instance:
+                #true表示把ip注册到服务注册中心，false表示把机器名注册到服务注册中心
+                prefer-ip-address: true
+       
+                        
+                        
