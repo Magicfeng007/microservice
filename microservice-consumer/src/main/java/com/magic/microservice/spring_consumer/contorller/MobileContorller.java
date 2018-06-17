@@ -31,9 +31,16 @@ public class MobileContorller {
 	
 	@GetMapping("getMobileById/{id}")
 	public MobilePhone queryMobileById(@PathVariable String id) {//@PathVariable注解可以通过url路径获取参数
-		System.out.println(queryMobileUrl);
+		System.out.println("getMobileById");
 		System.out.println(id);
 		return restTemplate.getForObject(queryMobileUrl, MobilePhone.class, id);
+	}
+	
+	@GetMapping("getMobileById2/{id}")
+	public MobilePhone queryMobileById2(@PathVariable String id) {//@PathVariable注解可以通过url路径获取参数
+		System.out.println("getMobileById2");
+		System.out.println(id);
+		return restTemplate.getForObject("http://microservice-provider-user2/queryMobileById/?id={id}", MobilePhone.class, id);
 	}
 	
 	@GetMapping("serviceInfo/{hostname}")
@@ -42,6 +49,7 @@ public class MobileContorller {
 		return "getHomePageUrl:" + info.getHomePageUrl() + "  getInstanceId:" + info.getInstanceId();
 	}
 	
+	@SuppressWarnings("deprecation")
 	@GetMapping("showLocalServiceInfo")
 	public ServiceInstance showLocalServiceInfo() {
 		ServiceInstance serviceInstance = discoveryClient.getLocalServiceInstance();
